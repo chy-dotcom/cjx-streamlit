@@ -48,7 +48,7 @@ def generate_wordcloud(word_counts):
     return buf
 
 # 设置字体，确保支持中文
-font_path = 'font/SimHei.ttf'  
+font_path = 'font/SimHei.ttf'  # 确保这个路径与您的项目结构相匹配
 font_prop = fm.FontProperties(fname=font_path)
 
 # Streamlit应用
@@ -78,7 +78,7 @@ def main():
                 if chart_type == "柱状图":
                     ax.bar(labels, values)
                 elif chart_type == "饼图":
-                    ax.pie(values, labels=labels, autopct='%1.1f%%')
+                    ax.pie(values, labels=labels, autopct='%1.1f%%', textprops={'fontproperties': font_prop})
                 elif chart_type == "条形图":
                     ax.barh(labels, values)
                 elif chart_type == "折线图":
@@ -87,7 +87,6 @@ def main():
                     ax.scatter(labels, values)
                 elif chart_type == "面积图":
                     ax.fill_between(labels, values)
-                # 应用字体到图表
                 ax.set_xticklabels(ax.get_xticklabels(), fontproperties=font_prop)
                 ax.set_yticklabels(ax.get_yticklabels(), fontproperties=font_prop)
                 ax.set_title(chart_type + ' 图表', fontproperties=font_prop)
