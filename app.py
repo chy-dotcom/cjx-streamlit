@@ -10,7 +10,7 @@ import io
 
 # 设置字体，确保支持中文
 matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['font/SimHei']
+matplotlib.rcParams['font.sans-serif'] = ['SimHei']
 
 # 加载停用词的函数
 def load_stopwords(file_path):
