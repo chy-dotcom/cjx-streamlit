@@ -7,10 +7,12 @@ from collections import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
+from matplotlib.font_manager import FontProperties  # 新增，用于加载字体文件
 
-# 设置字体，确保支持中文
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['SimHei']
+# 设置字体，确保支持中文（以下代码修改为从指定文件夹加载字体文件的方式）
+font_path = "font/simhei.ttf"  # 假设字体文件在项目根目录下的font文件夹里，根据实际情况调整路径
+font_prop = FontProperties(fname=font_path)  # 创建字体属性对象，指定字体文件路径
+matplotlib.rcParams['font.family'] = font_prop.get_name()  # 应用字体配置到matplotlib相关参数中
 
 # 加载停用词的函数
 def load_stopwords(file_path):
@@ -97,6 +99,9 @@ def main():
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.bar(labels, values)
+                ax.set_title("柱状图标题", fontproperties=font_prop)  # 设置标题使用指定字体
+                ax.set_xlabel("X轴标签", fontproperties=font_prop)  # 设置X轴标签使用指定字体
+                ax.set_ylabel("Y轴标签", fontproperties=font_prop)  # 设置Y轴标签使用指定字体
                 plt.xticks(rotation=90)
                 st.pyplot(fig)
             elif chart_type == "饼图":
@@ -104,18 +109,25 @@ def main():
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.pie(values, labels=labels, autopct='%1.1f%%')
+                ax.set_title("饼图标题", fontproperties=font_prop)  # 设置标题使用指定字体
                 st.pyplot(fig)
             elif chart_type == "条形图":
                 data = list(most_common_words)
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.barh(labels, values)
+                ax.set_title("条形图标题", fontproperties=font_prop)  # 设置标题使用指定字体
+                ax.set_xlabel("X轴标签", fontproperties=font_prop)  # 设置X轴标签使用指定字体
+                ax.set_ylabel("Y轴标签", fontproperties=font_prop)  # 设置Y轴标签使用指定字体
                 st.pyplot(fig)
             elif chart_type == "折线图":
                 data = list(most_common_words)
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.plot(labels, values)
+                ax.set_title("折线图标题", fontproperties=font_prop)  # 设置标题使用指定字体
+                ax.set_xlabel("X轴标签", fontproperties=font_prop)  # 设置X轴标签使用指定字体
+                ax.set_ylabel("Y轴标签", fontproperties=font_prop)  # 设置Y轴标签使用指定字体
                 plt.xticks(rotation=90)
                 st.pyplot(fig)
             elif chart_type == "散点图":
@@ -123,6 +135,9 @@ def main():
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.scatter(labels, values)
+                ax.set_title("散点图标题", fontproperties=font_prop)  # 设置标题使用指定字体
+                ax.set_xlabel("X轴标签", fontproperties=font_prop)  # 设置X轴标签使用指定字体
+                ax.set_ylabel("Y轴标签", fontproperties=font_prop)  # 设置Y轴标签使用指定字体
                 plt.xticks(rotation=90)
                 st.pyplot(fig)
             elif chart_type == "面积图":
@@ -130,6 +145,9 @@ def main():
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 ax.fill_between(labels, values)
+                ax.set_title("面积图标题", fontproperties=font_prop)  # 设置标题使用指定字体
+                ax.set_xlabel("X轴标签", fontproperties=font_prop)  # 设置X轴标签使用指定字体
+                ax.set_ylabel("Y轴标签", fontproperties=font_prop)  # 设置Y轴标签使用指定字体
                 plt.xticks(rotation=90)
                 st.pyplot(fig)
 
