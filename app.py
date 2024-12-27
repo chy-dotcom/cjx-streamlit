@@ -10,7 +10,7 @@ import io
 
 # 设置字体，确保支持中文
 matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['SimHei']
+matplotlib.rcParams['font.sans-serif'] = ['font/SimHei']
 
 # 加载停用词的函数
 def load_stopwords(file_path):
@@ -43,7 +43,7 @@ def get_word_frequency(text):
 
 # 3. 生成并展示词云
 def generate_wordcloud(word_counts):
-    wordcloud = WordCloud(font_path='simsun.ttc', width=800, height=600).generate_from_frequencies(word_counts)
+    wordcloud = WordCloud(font_path='font/simsun.ttc', width=800, height=600).generate_from_frequencies(word_counts)
 
     # 创建一个新的图形
     plt.figure(figsize=(10, 8))
