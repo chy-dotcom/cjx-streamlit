@@ -5,3 +5,4 @@ jieba
 wordcloud
 matplotlib
 Pillow
+FontProperties
