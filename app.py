@@ -7,14 +7,11 @@ from collections import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
-import matplotlib.font_manager as fm
+
 
 # 设置字体，确保支持中文
-font_path = 'font/SimHei.ttf'  
-font_prop = fm.FontProperties(fname=font_path)
-# 将字体应用到matplotlib的rcParams
-plt.rcParams['font.family'] = font_prop.get_name()
-plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+matplotlib.rcParams['font.family'] = 'sans-serif'
+matplotlib.rcParams['font.sans-serif'] = ['SimHei']
 
 # 加载停用词的函数
 def load_stopwords(file_path):
