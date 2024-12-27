@@ -7,6 +7,7 @@ from collections import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
+import matplotlib.font_manager as fm
 
 # 设置字体，确保支持中文
 font_path = 'font/SimHei.ttf'  
