@@ -7,12 +7,9 @@ from collections import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
-from matplotlib.font_manager import FontProperties
 
 # 设置字体，确保支持中文
-font_path = "font/SimHei.ttf"
-font = FontProperties(fname=font_path)
-matplotlib.rcParams['font.family'] = font.get_name()
+matplotlib.rcParams['font'] = ['font/SimHei']
 
 # 加载停用词的函数
 def load_stopwords(file_path):
