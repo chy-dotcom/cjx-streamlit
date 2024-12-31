@@ -4,6 +4,7 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import jieba
+import re
 from collections import Counter
 from wordcloud import WordCloud
 import io
@@ -23,10 +24,15 @@ def fetch_text_from_url(url):
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
         titles = [a.get('title', '') for a in soup.find_all('a')]
-        text = '\n'.join(titles)
-        return text
+        # 去除每个标题中的标点符号和空格
+        processed_titles = []
+        for title in titles:
+            # 使用正则表达式替换标点符号和空格为空字符串
+            clean_title = re.sub(r'[^\w]', '', title)
+            processed_titles.append(clean_title)
+        return processed_titles
     except Exception as e:
-        return str(e)
+        return [str(e)]
         
 # 分词和词频统计
 def get_word_frequency(text):
