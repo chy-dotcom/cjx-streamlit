@@ -22,9 +22,8 @@ def fetch_text_from_url(url):
         response = requests.get(url, headers=headers)
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
-        # 查找所有的 <a> 标签，并获取其title属性内容，如果没有title属性则获取空字符串
         titles = [a.get('title', '') for a in soup.find_all('a')]
-        text = ' '.join(titles)
+        text = '\n'.join(titles)
         return text
     except Exception as e:
         return str(e)
