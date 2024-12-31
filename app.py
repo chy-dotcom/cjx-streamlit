@@ -17,22 +17,19 @@ def load_stopwords(file_path):
     return stopwords
 
 # 获取网页文本内容
-def fetch_text_from_url(url):
-    headers = {"User-Agent": "Mozilla/5.0"}
-    try:
-        response = requests.get(url, headers=headers)
-        response.encoding = response.apparent_encoding
-        soup = BeautifulSoup(response.text, 'html.parser')
-        titles = [a.get('title', '') for a in soup.find_all('a')]
-        # 去除每个标题中的标点符号和空格
-        processed_titles = []
-        for title in titles:
-            # 使用正则表达式替换标点符号和空格为空字符串
-            clean_title = re.sub(r'[^\w]', '', title)
-            processed_titles.append(clean_title)
-        return processed_titles
-    except Exception as e:
-        return [str(e)]
+def fetch_text_from_url(url):  
+    headers = {"User-Agent": "Mozilla/5.0"}  
+    try:  
+        response = requests.get(url, headers=headers)  
+        response.encoding = response.apparent_encoding  
+        soup = BeautifulSoup(response.text, 'html.parser')   
+        # 提取每个标题，并去除标点符号和空格  
+        titles = [re.sub(r'[^\w]', '', a.get('title', '')) for a in soup.find_all('a')]  
+        # 过滤掉空字符串  
+        titles = [title for title in titles if title]      
+        return titles  
+    except Exception as e:  
+        return [str(e)]  
         
 # 分词和词频统计
 def get_word_frequency(text):
