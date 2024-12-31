@@ -4,7 +4,6 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import jieba
-import re
 from collections import Counter
 from wordcloud import WordCloud
 import io
@@ -22,14 +21,13 @@ def fetch_text_from_url(url):
     try:  
         response = requests.get(url, headers=headers)  
         response.encoding = response.apparent_encoding  
-        soup = BeautifulSoup(response.text, 'html.parser')   
-        # 提取每个标题，并去除标点符号和空格  
-        titles = [re.sub(r'[^\w]', '', a.get('title', '')) for a in soup.find_all('a')]  
-        # 过滤掉空字符串  
-        titles = [title for title in titles if title]      
-        return titles  
+        soup = BeautifulSoup(response.text, 'html.parser')  
+        # 获取所有 title，并去除逗号和引号  
+        titles = [a.get('title', '').replace(',', '').replace("'", "") for a in soup.find_all('a')]  
+        # 使用换行符将标题连接为一个字符串  
+        return '\n'.join(titles)  
     except Exception as e:  
-        return [str(e)]  
+        return str(e)  
         
 # 分词和词频统计
 def get_word_frequency(text):
