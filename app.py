@@ -7,6 +7,7 @@ import jieba
 from collections import Counter
 from wordcloud import WordCloud
 import io
+import pandas as pd
 
 # 加载停用词的函数
 def load_stopwords(file_path):
@@ -64,15 +65,18 @@ def main():
             bordered_text = f'<div style="border: 1px solid gray; padding: 10px;">{text}</div>'
             st.markdown(bordered_text, unsafe_allow_html=True)
             word_counts = get_word_frequency(text)
-            most_common_words = word_counts.most_common(20)
+
+            # 获取词频排名前20的词汇，并转换为DataFrame展示，替换原来的展示方式
+            top_20_word_counts_df = pd.DataFrame(list(word_counts.most_common(20)), columns=['词语', '频率'])
             st.subheader("词频排名前20的词汇")
-            st.write(most_common_words)
+            st.dataframe(top_20_word_counts_df)
+
             chart_type = st.sidebar.selectbox("选择图表类型", ["词云图", "柱状图", "饼图", "条形图", "折线图", "散点图", "面积图"])
             if chart_type == "词云图":
                 wordcloud_buf = generate_wordcloud(word_counts)
                 st.image(wordcloud_buf)
             else:
-                data = list(most_common_words)
+                data = list(word_counts.most_common(20))  # 这里还是用前20的数据来做图表，可根据实际需求调整
                 labels, values = zip(*data)
                 fig, ax = plt.subplots()
                 if chart_type == "柱状图":
