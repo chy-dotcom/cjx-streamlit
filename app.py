@@ -23,7 +23,8 @@ def fetch_text_from_url(url):
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
         titles = [a.get('title', '') for a in soup.find_all('a')]
-        return  titles
+        text = '\n'.join(titles)
+        return text
     except Exception as e:
         return str(e)
         
