@@ -22,7 +22,7 @@ def fetch_text_from_url(url):
         response = requests.get(url, headers=headers)
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
-        paragraphs = soup.find_all('p')
+        paragraphs = soup.find_all('a',target=_blank)
         text = ' '.join([para.get_text() for para in paragraphs])
         return text
     except Exception as e:
