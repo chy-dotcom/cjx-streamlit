@@ -22,12 +22,13 @@ def fetch_text_from_url(url):
         response = requests.get(url, headers=headers)
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
-        paragraphs = soup.find_all('a')
-        text = ' '.join([para.get_text() for para in paragraphs])
+        # 查找所有的 <a> 标签，并获取其title属性内容，如果没有title属性则获取空字符串
+        titles = [a.get('title', '') for a in soup.find_all('a')]
+        text = ' '.join(titles)
         return text
     except Exception as e:
         return str(e)
-
+        
 # 分词和词频统计
 def get_word_frequency(text):
     stopwords = load_stopwords("stoppedwords.txt")
